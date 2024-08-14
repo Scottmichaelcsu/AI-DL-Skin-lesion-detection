@@ -2,7 +2,7 @@
 # README 1.0 08/12/2024
 Software Engineering 2024 Fall semester AI-DL group project.
 
-TEAM(change your name from your Discord): Michael, "TheManDan, "IceSigil", "cagreen718"
+TEAM(change your name from your Discord): Michael, "TheManDan, Jackson, "cagreen718"
 
 
 TEAM NAME: "WORK IN PROGRESS"
