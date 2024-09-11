@@ -13,6 +13,7 @@ file_paths = df['lesion_id'].values
 labels = df['dx'].values
 
 #Keras data input goes here to preprocess files into individual folders according to label
+#Might go in separate file if we want to separate preprocessing and CNN itself?
 datagen = ImageDataGenerator()
 
 
