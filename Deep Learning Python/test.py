@@ -7,19 +7,10 @@ from tensorflow.keras import layers, models
 from keras import layers
 import pandas as pd
 
-
-
 directory = 'C:/Users/grayj/Desktop/DATASET'
 df= pd.read_csv(directory + '/HAM10000_metadata.csv')
 file_paths = df['lesion_id'].values
 labels = df['dx'].values
-#print(labels)
-#ds_train = tf.data.Dataset.from_tensor_slices((file_paths, labels))
-
-def read_image(image_file, label):
-    image = tf.io.read_file(directory + image_file)
-    image = tf.image.decode_image(image, channels = 3, dtype = tf.float32)
-    return image, label
 
 
 
