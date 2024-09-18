@@ -4,19 +4,25 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import keras 
 import tensorflow as tf
 from keras import layers, models
-from keras.preprocessing.image import ImageDataGenerator
+from matplotlib import pyplot as plt
 import pandas as pd
+import numpy
 
-directory = 'C:/Users/grayj/Desktop/DATASET'
-df= pd.read_csv(directory + '/HAM10000_metadata.csv')
+directory1 = 'C:/Users/grayj/Desktop/DATASET'
+df= pd.read_csv('C:/Users/grayj/Desktop/DATASET/HAM10000_metadata.csv')
 file_paths = df['lesion_id'].values
 labels = df['dx'].values
 
-#Keras data input goes here to preprocess files into individual folders according to label
-#Might go in separate file if we want to separate preprocessing and CNN itself?
+#Attempting to import images from dataset into legacy Keras ImageDataGenerator
+from keras.src.legacy.preprocessing.image import ImageDataGenerator
 datagen = ImageDataGenerator()
+train_data_keras = datagen.flow_from_directory(directory = 'C:/Users/grayj/Desktop/DATASET/Train', class_mode = 'categorical', batch_size = 16, target_size=(32,32))
+x, y = next(train_data_keras)
 
-
+for i in range(0,15):
+    image = x[i].astype(int)
+    plt.imshow(image)
+    plt.show()
 
 model = models.Sequential()
 model.add(layers.Conv2D(28, (3, 3), activation='relu', input_shape=(28,28,3)))
@@ -34,5 +40,9 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 
-history = model.fit(train_images, train_labels, epochs=10, 
-                    validation_data=(test_images, test_labels))
+test_data_keras = datagen.flow_from_directory(directory = 'C:/Users/grayj/Desktop/DATASET/Test', class_mode = 'categorical', batch_size = 16, target_size=(32,32))
+train_data_keras = datagen.flow_from_directory(directory = 'C:/Users/grayj/Desktop/DATASET/Train', class_mode = 'categorical', batch_size = 16, target_size=(32,32))
+valid_data_keras = datagen.flow_from_directory(directory = 'C:/Users/grayj/Desktop/DATASET/Validate', class_mode = 'categorical', batch_size = 16, target_size=(32,32))
+
+history = model.fit(train_data_keras, labels, epochs=10, 
+                    validation_data=(valid_data_keras, test_labels))
