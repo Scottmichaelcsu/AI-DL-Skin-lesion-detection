@@ -22,7 +22,7 @@ labels = df['dx'].values
 #This section is very important and is how we import our images! Don't mess with it
 from keras.src.legacy.preprocessing.image import ImageDataGenerator
 datagen = ImageDataGenerator()
-train_data_keras = datagen.flow_from_directory(directory = 'C:/Users/grayj/Desktop/DATASET/Train', class_mode = 'categorical', batch_size = 16, target_size=(32,32))
+train_data_keras = datagen.flow_from_directory(directory = 'C:/Users/grayj/Desktop/DATASET/Train', class_mode = 'categorical', batch_size = 2, target_size=(32,32), shuffle = False)
 x, y = next(train_data_keras)
 
 #This section will be deleted, as it just shows the first 16 images the above section gets
@@ -30,7 +30,7 @@ for i in range(0,15):
     image = x[i].astype(int)
     plt.imshow(image)
     plt.show()
-
+'''
 #This is our actual model. I don't know how it really works but don't mess with it
 model = models.Sequential()
 model.add(layers.Conv2D(28, (3, 3), activation='relu', input_shape=(28,28,3)))
@@ -50,10 +50,10 @@ model.compile(optimizer='adam',
 
 #This is our new input, and will be how we feed into model.fit, the command that actually trains the model.
 test_data_keras = datagen.flow_from_directory(directory = 'C:/Users/grayj/Desktop/DATASET/Test', class_mode = 'categorical', batch_size = 16, target_size=(32,32))
-train_data_keras = datagen.flow_from_directory(directory = 'C:/Users/grayj/Desktop/DATASET/Train', class_mode = 'categorical', batch_size = 16, target_size=(32,32))
 valid_data_keras = datagen.flow_from_directory(directory = 'C:/Users/grayj/Desktop/DATASET/Validate', class_mode = 'categorical', batch_size = 16, target_size=(32,32))
 test_csv = pd.read_csv('C:/Users/grayj/Desktop/DATASET/test.csv', names = ["dx"])
 train_csv = pd.read_csv('C:/Users/grayj/Desktop/DATASET/train.csv', names = ["dx"])
 valid_csv = pd.read_csv('C:/Users/grayj/Desktop/DATASET/valid.csv', names = ["dx"])
 
-model.fit(train_data_keras, pd.read_csv('C:/Users/grayj/Desktop/DATASET/HAM10000_metadata.csv'), header=None, names='dx')
+model.fit(train_data_keras, train_csv, header=None, names='dx')
+'''
