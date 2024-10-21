@@ -24,15 +24,7 @@ from keras.src.legacy.preprocessing.image import ImageDataGenerator
 datagen = ImageDataGenerator()
 train_data_keras = datagen.flow_from_directory(directory = 'C:/Users/grayj/Desktop/DATASET/Train', class_mode = 'categorical', batch_size = 16, target_size=(32,32), shuffle = False)
 x, y = next(train_data_keras)
-#print(train_data_keras.filenames)
 
-'''
-#This section will be deleted, as it just shows the first 16 images the above section gets
-for i in range(0,15):
-    image = x[i].astype(int)
-    plt.imshow(image)
-    plt.show()
-'''
 
 #This is our actual model.
 model = models.Sequential()
