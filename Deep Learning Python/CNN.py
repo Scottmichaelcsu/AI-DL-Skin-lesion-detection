@@ -9,7 +9,9 @@ import tensorflow as tf
 from keras import layers, models
 from matplotlib import pyplot as plt
 import pandas as pd
-import numpy
+import numpy as np
+from sklearn.metrics import confusion_matrix
+import seaborn as sns
 
 
 #This whole section is likely outdated and will be replaced later.
@@ -50,9 +52,14 @@ train_csv = pd.read_csv('C:/Users/grayj/Desktop/DATASET/train.csv', names = ["dx
 valid_csv = pd.read_csv('C:/Users/grayj/Desktop/DATASET/valid.csv', names = ["dx"])
 
 #The command that trains the model
-model.fit(train_data_keras, epochs=5, validation_data=valid_data_keras)
+history = model.fit(train_data_keras, epochs=1, validation_data=valid_data_keras)
 
 #This should set the model to predict on the testing data- however it gives no result?
-model.predict(test_data_keras, verbose=1)
+score = model.evaluate(test_data_keras)
 
-model.summary()
+
+#I tried to chart the data using plotlib according to that one guy's videos on HAM10000
+#So far didn't work, but I might try another method.
+
+
+#model.summary()
